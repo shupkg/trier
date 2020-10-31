@@ -8,13 +8,7 @@ import (
 var (
 	standard      = newEntry(newRus()).WithField("prefix", "MAIN")
 	cHook         = new(callerHook)
-	textFormatter = &DefaultFormatter{callerMaxChars: 30}
-	//textFormatter = &TextFormatter{
-	//	CallerPrettyfier:       cHook.FormatCaller,
-	//	DisableTimestamp:       false,
-	//	FullTimestamp:          true,
-	//	DisableLevelTruncation: false,
-	//}
+	textFormatter = &DefaultFormatter{callerMaxChars: 15}
 )
 
 func init() {

@@ -77,9 +77,8 @@ func (f *DefaultFormatter) formatPrefix(entry *Entry) string {
 			}
 			if len(prefix) > f.prefixMaxChars {
 				return " .." + prefix[:f.prefixMaxChars-2] + " | "
-			} else {
-				return " " + prefix + strings.Repeat(" ", f.prefixMaxChars-len(prefix)) + " | "
 			}
+			return " " + prefix + strings.Repeat(" ", f.prefixMaxChars-len(prefix)) + " | "
 		}
 	}
 	return " " + strings.Repeat("-", f.prefixMaxChars) + " | "

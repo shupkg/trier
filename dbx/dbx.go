@@ -28,4 +28,3 @@ func DoUpdateColumns(columns ...string) clause.OnConflict {
 }
 
 var DoNothing = clause.OnConflict{DoNothing: true}
-
