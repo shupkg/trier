@@ -1,7 +1,6 @@
 package log
 
 import (
-	"fmt"
 	"io"
 )
 
@@ -36,16 +35,16 @@ func (c *Option) Default() {
 }
 
 func Apply(opt Option) {
-	fmt.Printf("%-15s %s\n", "Level:", opt.Level)
-	fmt.Printf("%-15s %t\n", "Caller:", opt.Caller)
-	fmt.Printf("%-15s %t\n", "Terminal:", opt.Terminal)
-	fmt.Printf("%-15s %d\n", "CallerMaxChars:", opt.CallerMaxChars)
-	fmt.Printf("%-15s %s\n", "Filename:", opt.File.Filename)
-	fmt.Printf("%-15s %dM\n", "MaxSize:", opt.File.MaxSize)
-	fmt.Printf("%-15s %d天\n", "MaxAge:", opt.File.MaxAge)
-	fmt.Printf("%-15s %d个\n", "MaxBackups:", opt.File.MaxBackups)
-	fmt.Printf("%-15s %t\n", "LocalTime:", opt.File.LocalTime)
-	fmt.Printf("%-15s %t\n", "Compress:", opt.File.Compress)
+	//fmt.Printf("%-15s %s\n", "Level:", opt.Level)
+	//fmt.Printf("%-15s %t\n", "Caller:", opt.Caller)
+	//fmt.Printf("%-15s %t\n", "Terminal:", opt.Terminal)
+	//fmt.Printf("%-15s %d\n", "CallerMaxChars:", opt.CallerMaxChars)
+	//fmt.Printf("%-15s %s\n", "Filename:", opt.File.Filename)
+	//fmt.Printf("%-15s %dM\n", "MaxSize:", opt.File.MaxSize)
+	//fmt.Printf("%-15s %d天\n", "MaxAge:", opt.File.MaxAge)
+	//fmt.Printf("%-15s %d个\n", "MaxBackups:", opt.File.MaxBackups)
+	//fmt.Printf("%-15s %t\n", "LocalTime:", opt.File.LocalTime)
+	//fmt.Printf("%-15s %t\n", "Compress:", opt.File.Compress)
 	if opt.CallerMaxChars > 0 {
 		textFormatter.callerMaxChars = opt.CallerMaxChars
 	}

@@ -6,12 +6,13 @@ import (
 )
 
 var (
-	standard      = newEntry(newRus()).WithField("prefix", "MAIN")
+	standard      *Entry
 	cHook         = new(callerHook)
-	textFormatter = &DefaultFormatter{callerMaxChars: 15}
+	textFormatter = &DefaultFormatter{}
 )
 
 func init() {
+	standard = newRus().WithField("prefix","main")
 	SetFormatter(textFormatter)
 	AddHook(cHook)
 	SetLevel("trace")
@@ -41,7 +42,7 @@ func SetLevel(level string) {
 	}
 }
 
-func SetOut(out io.Writer) {
+func SetOutput(out io.Writer) {
 	standard.Logger.SetOutput(out)
 }
 
@@ -53,16 +54,16 @@ func SetReportCaller(reportCaller bool) {
 	standard.Logger.SetReportCaller(reportCaller)
 }
 
-func SetPrefix(prefix string) {
-	standard = standard.WithField("prefix", prefix)
-}
-
 func WithContext(ctx context.Context) Logger {
 	return standard.WithContext(ctx)
 }
 
 func WithPrefix(prefix string) Logger {
 	return standard.WithField("prefix", prefix)
+}
+
+func SetPrefix(prefix string) {
+	standard = standard.WithField("prefix", prefix)
 }
 
 func Debugf(format string, args ...interface{}) {

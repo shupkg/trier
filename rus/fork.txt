@@ -1,6 +1,0 @@
-fork time: 
-	Sat, 24 Oct 2020 07:04:01 +0800
-fork from:
-	https://github.com/sirupsen/logrus.git
-fork version:
-    d131c24-dirty David Bariod <davidriod@googlemail.com>   Wed Sep 30 13:26:25 2020 +0200

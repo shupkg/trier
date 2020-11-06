@@ -29,14 +29,14 @@ type Email struct {
 	Charset     string
 	Encoding    encoding
 	Error       error
-	SMTPServer  *smtpClient
+	Server  *smtpClient
 }
 
 /*
-SMTPServer represents a SMTP Server
+Server represents a SMTP Server
 If authentication is CRAM-MD5 then the Password is the Secret
 */
-type SMTPServer struct {
+type Server struct {
 	Authentication authType
 	Encryption     encryption
 	Username       string
@@ -49,8 +49,8 @@ type SMTPServer struct {
 	TLSConfig      *tls.Config
 }
 
-//SMTPClient represents a SMTP Client for send email
-type SMTPClient struct {
+//Client represents a SMTP Client for send email
+type Client struct {
 	Client      *smtpClient
 	KeepAlive   bool
 	SendTimeout time.Duration
@@ -129,8 +129,8 @@ const (
 	AuthCRAMMD5
 )
 
-// NewMSG creates a new email. It uses UTF-8 by default. All charsets: http://webcheatsheet.com/HTML/character_sets_list.php
-func NewMSG() *Email {
+// NewEmail creates a new email. It uses UTF-8 by default. All charsets: http://webcheatsheet.com/HTML/character_sets_list.php
+func NewEmail() *Email {
 	email := &Email{
 		headers:  make(textproto.MIMEHeader),
 		Charset:  "UTF-8",
@@ -142,9 +142,9 @@ func NewMSG() *Email {
 	return email
 }
 
-//NewSMTPClient returns the client for send email
-func NewSMTPClient() *SMTPServer {
-	server := &SMTPServer{
+//New returns the client for send email
+func New() *Server {
+	server := &Server{
 		Authentication: AuthPlain,
 		Encryption:     EncryptionNone,
 		ConnectTimeout: 10 * time.Second,
@@ -676,7 +676,7 @@ func (email *Email) GetMessage() string {
 }
 
 // Send sends the composed email
-func (email *Email) Send(client *SMTPClient) error {
+func (email *Email) Send(client *Client) error {
 
 	if email.Error != nil {
 		return email.Error
@@ -760,7 +760,7 @@ func smtpConnect(host string, port string, a auth, encryption encryption, config
 }
 
 //Connect returns the smtp client
-func (server *SMTPServer) Connect() (*SMTPClient, error) {
+func (server *Server) Connect() (*Client, error) {
 
 	var a auth
 
@@ -813,7 +813,7 @@ func (server *SMTPServer) Connect() (*SMTPClient, error) {
 		}
 	}
 
-	return &SMTPClient{
+	return &Client{
 		Client:      c,
 		KeepAlive:   server.KeepAlive,
 		SendTimeout: server.SendTimeout,
@@ -821,27 +821,27 @@ func (server *SMTPServer) Connect() (*SMTPClient, error) {
 }
 
 // Reset send RSET command to smtp client
-func (smtpClient *SMTPClient) Reset() error {
+func (smtpClient *Client) Reset() error {
 	return smtpClient.Client.reset()
 }
 
 // Noop send NOOP command to smtp client
-func (smtpClient *SMTPClient) Noop() error {
+func (smtpClient *Client) Noop() error {
 	return smtpClient.Client.noop()
 }
 
 // Quit send QUIT command to smtp client
-func (smtpClient *SMTPClient) Quit() error {
+func (smtpClient *Client) Quit() error {
 	return smtpClient.Client.quit()
 }
 
 // Close closes the connection
-func (smtpClient *SMTPClient) Close() error {
+func (smtpClient *Client) Close() error {
 	return smtpClient.Client.close()
 }
 
 // send does the low level sending of the email
-func send(from string, to []string, msg string, client *SMTPClient) error {
+func send(from string, to []string, msg string, client *Client) error {
 	//Check if client struct is not nil
 	if client != nil {
 
@@ -913,7 +913,7 @@ func sendMailProcess(from string, to []string, msg string, c *smtpClient) error 
 }
 
 //check if keepAlive for close or reset
-func checkKeepAlive(client *SMTPClient) {
+func checkKeepAlive(client *Client) {
 	if client.KeepAlive {
 		client.Client.reset()
 	} else {

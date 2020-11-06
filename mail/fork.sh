@@ -36,11 +36,16 @@ fi
 
 git clone --depth=1 ${gitAddr} tmp
 
-find ./tmp -name \*.go -exec sed -i.bak "s?${oldPkg}?${newPkg}?g;s?${oldName}?${newName}?g" {} \;
-find ./tmp -type d ! -path \*.\* ! -name tmp ! -name example -exec sh -c 'mkdir -p ${1:6};echo mkdir -p ${1:6}' sh {} \;
-find ./tmp -type f -name \*.go ! -name \*_test.go -exec sh -c 'mv $1 ${1:6}; echo mv $1 ${1:6}' sh {} \;
+find ./tmp -name '*.go' -exec sed -i.bak 's/SMTPServer/Server/g' {} \;
+find ./tmp -name '*.go' -exec sed -i.bak 's/SMTPClient/Client/g' {} \;
+find ./tmp -name '*.go' -exec sed -i.bak 's/NewMSG/NewEmail/g' {} \;
+find ./tmp -name '*.go' -exec sed -i.bak 's/NewClient/New/g' {} \;
 
-find ./tmp -name \*.go -exec sed -i.bak 's?SMTPServer?Server?g;s?SMTPClient?Client?g;s?NewMSG?NewEmail?g;s?NewClient?New?g' {} \;
+find ./tmp -name '*.go' -exec sed -i.bak "s?${oldPkg}?${newPkg}?g;s?${oldName}?${newName}?g" {} \;
+find ./tmp -type d ! -path '*.*' ! -name tmp ! -name example -exec sh -c 'mkdir -p ${1:6};echo mkdir -p ${1:6}' sh {} \;
+find ./tmp -type f -name '*.go' ! -name '*_test.go' -exec sh -c 'mv $1 ${1:6}; echo mv $1 ${1:6}' sh {} \;
+
+#find . -name '*.bak' -exec rm {} \;
 
 fVersion=$(getVersion)
 fAuthor=$(getAuthor)

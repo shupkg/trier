@@ -5,8 +5,9 @@ import (
 )
 
 type (
-	Entry         = logrus.Entry
-	Level         = logrus.Level
+	Rus   = logrus.Logger
+	Entry = logrus.Entry
+	Level = logrus.Level
 )
 
 var (
@@ -20,8 +21,8 @@ var (
 const (
 	TraceLevel = logrus.TraceLevel
 	DebugLevel = logrus.DebugLevel
-	InfoLevel = logrus.InfoLevel
-	WarnLevel = logrus.WarnLevel
+	InfoLevel  = logrus.InfoLevel
+	WarnLevel  = logrus.WarnLevel
 	ErrorLevel = logrus.ErrorLevel
 	FatalLevel = logrus.FatalLevel
 	PanicLevel = logrus.PanicLevel

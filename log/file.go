@@ -1,7 +1,6 @@
 package log
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -11,7 +10,6 @@ import (
 
 func File(o FileOption) io.Writer {
 	if o.Filename != "" {
-		fmt.Printf("日志文件路径: %s\n", o.Filename)
 		if fn, _ := filepath.Abs(o.Filename); fn != "" {
 			_ = os.MkdirAll(filepath.Dir(fn), 0755)
 		}
